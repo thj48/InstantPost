@@ -4,18 +4,36 @@
 	<title>Instant Poster</title>
 </head>
 <body>
+
 	<h1>Instant Post</h1>
 	<p>Post now in the form below.</p>
-	<form>
+	<form method="post" action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>">
 		Name:<br>
 		<input type="text" name="name" hint="Enter your thoughts"><br>
 		Message:<br>
 		<textarea rows="5" cols="30" name="post"></textarea><br>
+		<radio>
 		<input type="submit" value="Post"> 
 	</form>
-	<!-- <?php
-		$name = Null;
-		$message = Null;
-	?> -->
+
+	<?php
+	$name=$post="";
+	
+	if ($_SERVER["REQUEST_METHOD"] == "POST") {
+  		$name = test_input($_POST["name"]);
+  		$post = test_input($_POST["post"]);
+  	}
+
+  	function test_input($data) {
+	  $data = trim($data);
+	  $data = stripslashes($data);
+	  $data = htmlspecialchars($data);
+	  return $data;
+	}
+
+	echo "<h2>Your Post:</h2>;
+	echo "$name";
+	echo "$post";
+	?>
 </body>
 </html>
